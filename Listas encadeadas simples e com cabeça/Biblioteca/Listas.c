@@ -125,3 +125,54 @@ void liberaNos(TipoListaSimples **prim) {
     liberaNos(&(*prim));
   }
 }
+
+/*================================>PROCEDIMENTOS ESPECÍFICOS DE LISTAS
+/* 
+-------------------------> Cria cópia 
+* Cria uma nova lista cujos nós têm os mesmos
+* valores da lista dada. Devolve o ponteiro para 
+* o primeiro nó da nova lista. 
+*/
+TipoListaSimples *copiaListas(TipoListaSimples *prim) {
+	if (prim == NULL) return prim;
+	else {
+		TipoListaSimples *novaLista = (TipoListaSimples*)malloc(sizeof(TipoListaSimples)), *listaAux = NULL;
+		if (novaLista == NULL) return NULL;
+		novaLista = prim;
+		return novaLista;
+	}	
+}
+
+/* -------------------------> ContaNó.
+* Conta o número de nós de uma lista encadeada.
+* Retorno número de nós 
+*/
+int contaNo(TipoListaSimples **primLista1) {
+	TipoListaSimples *listaAux = NULL;
+	int nos = 0;
+	for (listaAux = *primLista1; listaAux != NULL; listaAux = listaAux->prox) {
+		nos++;
+	}
+	return nos;
+}
+
+/* -------------------------> Altura do Nó.
+* Escreva uma função que calcule a altura de um dado nó(baseado na 
+* chave).
+* A altura de um nó c em uma lista encadeada é a distância entre c e o 
+* fim da lista. 
+* Mais precisamente, a altura de c é o número de passos do caminho que 
+* leva de c até a último nó da lista.
+* Retorno altura do nó */
+int alturaNo(TipoListaSimples **primLista1, TipoChave chave) {
+	int alt = 0;
+	if(*primLista1 == NULL) return 0;
+	if ((*primLista1)->chave == chave) {
+		TipoListaSimples *listaAux = NULL;
+		for (listaAux = *primLista1; listaAux != NULL; listaAux = listaAux->prox) {
+			alt++;		
+		}
+	}		
+	else alturaNo(&((*primLista1)->prox), chave);
+	return alt;
+}
