@@ -127,11 +127,11 @@ void liberaNos(TipoListaSimples **prim) {
 }
 
 /*================================>PROCEDIMENTOS ESPECÍFICOS DE LISTAS
-/* 
--------------------------> Cria cópia 
+/*
+-------------------------> Cria cópia
 * Cria uma nova lista cujos nós têm os mesmos
-* valores da lista dada. Devolve o ponteiro para 
-* o primeiro nó da nova lista. 
+* valores da lista dada. Devolve o ponteiro para
+* o primeiro nó da nova lista.
 */
 TipoListaSimples *copiaListas(TipoListaSimples *prim) {
 	if (prim == NULL) return prim;
@@ -140,12 +140,12 @@ TipoListaSimples *copiaListas(TipoListaSimples *prim) {
 		if (novaLista == NULL) return NULL;
 		novaLista = prim;
 		return novaLista;
-	}	
+	}
 }
 
 /* -------------------------> ContaNó.
 * Conta o número de nós de uma lista encadeada.
-* Retorno número de nós 
+* Retorno número de nós
 */
 int contaNo(TipoListaSimples **primLista1) {
 	TipoListaSimples *listaAux = NULL;
@@ -157,22 +157,30 @@ int contaNo(TipoListaSimples **primLista1) {
 }
 
 /* -------------------------> Altura do Nó.
-* Escreva uma função que calcule a altura de um dado nó(baseado na 
+* Escreva uma função que calcule a altura de um dado nó(baseado na
 * chave).
-* A altura de um nó c em uma lista encadeada é a distância entre c e o 
-* fim da lista. 
-* Mais precisamente, a altura de c é o número de passos do caminho que 
+* A altura de um nó c em uma lista encadeada é a distância entre c e o
+* fim da lista.
+* Mais precisamente, a altura de c é o número de passos do caminho que
 * leva de c até a último nó da lista.
 * Retorno altura do nó */
 int alturaNo(TipoListaSimples **primLista1, TipoChave chave) {
 	int alt = 0;
-	if(*primLista1 == NULL) return 0;
-	if ((*primLista1)->chave == chave) {
-		TipoListaSimples *listaAux = NULL;
-		for (listaAux = *primLista1; listaAux != NULL; listaAux = listaAux->prox) {
-			alt++;		
-		}
-	}		
-	else alturaNo(&((*primLista1)->prox), chave);
-	return alt;
+  if(*primLista1 == NULL) return alt;
+  alt++;
+  if ((*primLista1)->chave == chave) return alt;
+  else alturaNo(&((*primLista1)->prox), chave);
+}
+
+/* -------------------------> Profundidade do Nó.
+* Escreva uma função que calcule a profundidade de um dado nó (baseado na
+*chave).
+* A profundidade de um nó c em uma lista encadeada é o número de passos do
+*único caminho que vai do primeiro nó da lista até c.*/
+int profundidadeNo(TipoListaSimples **primLista1, TipoChave chave) {
+  int prof = 0;
+  if(*primLista1 == NULL) return prof;
+  prof++;
+  if ((*primLista1)->chave == chave) return prof;
+  else alturaNo(&((*primLista1)->prox), chave);
 }

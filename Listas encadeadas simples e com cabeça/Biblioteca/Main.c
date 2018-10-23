@@ -85,20 +85,20 @@ int main(void) {
     puts("\n");
     imprimeLista(lista2);
     */
-    
+
     puts("\n");
     puts("contaNo()");
     printf("n = %d\n", contaNo(&lista));
-    
+
     puts("\n");
-    puts("alturaNo(15)");
-    printf("h = %d\n", alturaNo(&lista, 15));
-    
-    /*
-    puts("profundidadeNo() //3");
-    printf("p = %d\n", profundidadeNo(&lista, 76));
-    imprimeLista(lista);*/
-    
+    puts("alturaNo(36)");
+    printf("h = %d\n", alturaNo(&lista, 36));
+
+
+    puts("profundidadeNo() //27");
+    printf("p = %d\n", profundidadeNo(&lista, 27));
+    imprimeLista(lista);
+
     puts("\n");
     puts("liberaNos()");
     liberaNos(&lista);
