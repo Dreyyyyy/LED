@@ -58,18 +58,17 @@ int main(void) {
     removeUltimoNo(&lista);
     imprimeLista(lista);
 
-    /*puts("\n");
+    puts("\n");
     puts("removeNo() //33");
     removeNo(&lista, 33);
     imprimeLista(lista);
-    imprimeLista(lista);*/
 
 	puts("\n");
     puts("copiaListas()");
     lista2 = copiaListas(lista);
     imprimeLista(lista2);
-    /*
-    puts("\n");
+    
+    /*puts("\n");
     puts("intersecaoListas()");
     lista2 = intersecaoListas(lista, lista2);
     imprimeLista(lista2);
@@ -91,12 +90,12 @@ int main(void) {
     printf("n = %d\n", contaNo(&lista));
 
     puts("\n");
-    puts("alturaNo(36)");
-    printf("h = %d\n", alturaNo(&lista, 36));
+    puts("alturaNo(27)");
+    printf("h = %d\n", alturaNo(&lista, 27));
 
 
-    puts("profundidadeNo() //27");
-    printf("p = %d\n", profundidadeNo(&lista, 27));
+    puts("profundidadeNo() //36");
+    printf("p = %d\n", profundidadeNo(&lista, 36));
     imprimeLista(lista);
 
     puts("\n");
