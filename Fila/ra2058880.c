@@ -127,7 +127,7 @@ int remove_fila(InicioFim *fila) {
 	}
 }
 
-// - Busca(protótipo)
+// - Busca(função)
 int busca_sequencial(InicioFim *fila, int ele) {
 	No *filaAux = NULL;
 	for (filaAux = fila->inicio->prox; filaAux !=NULL; filaAux = filaAux->prox) {
