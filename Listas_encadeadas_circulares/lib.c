@@ -27,7 +27,7 @@ TipoListaCircular *insereInicioListaCircular(TipoListaCircular **prim, TipoChave
       novoNo->valorQualquer = valor;
       novoNo->prox = (*prim)->prox;
       (*prim)->prox = novoNo;
-      return novoNo;
+      return *prim;
     }
   }
 }
@@ -37,26 +37,25 @@ TipoListaCircular *insereInicioListaCircular(TipoListaCircular **prim, TipoChave
 * Mantêm lista inalterada caso este não exista.
 */
 void removeNo(TipoListaCircular **prim, TipoChave chave) {
-  if (*prim == NULL) return;//Se a lista for nula, a função é encerrada;
-  if (*prim == (*prim)->prox) {
-    if ((*prim)->chave == chave) {
-      free(*prim);
-      *prim = NULL;
-      return;//Se a lista contém apenas um elemento, este é removido e a função é encerrada;
-    }
-    else {
-      printf("Chave inexistente na lista!\n");//Caso a chave não exista no único nó da lista;
-      return;
-    }
+  if (*prim == NULL) return;
+  if ((*prim)->prox == *prim) {
+    free(*prim);
+    *prim = NULL;
+    return;
   }
-  TipoListaCircular *listaAux = NULL, *listaAux2 = NULL;
-  for (listaAux = *prim; listaAux != NULL; listaAux = listaAux->prox) {
-    if (listaAux->chave == chave) {
-      free(listaAux);
-      *prim = listaAux->prox;break;
-    }
+  else {
+    TipoListaCircular *listaAux = *prim, *primeiro = *prim;
+    do {
+      if (listaAux->chave == chave) {
+        free(listaAux);
+        listaAux = listaAux->prox;
+        return;
+      }
+      listaAux = listaAux->prox;
+    }while (listaAux != primeiro);
   }
 }
+
 
 /* -------------------------> Cria cópia
 * Cria uma nova lista cujos nós tem valor chave par
