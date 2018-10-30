@@ -73,6 +73,6 @@ TipoListaCircular *copiaListaPar(TipoListaCircular *prim) {
 			insereInicioListaCircular(&novaLista, listaAux->chave, listaAux->valorQualquer);
 		}
 		listaAux = listaAux->prox;
-	}while(listaAux != prim->prox);
+	}while(listaAux != prim);
 	return novaLista;
 }
