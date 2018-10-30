@@ -27,9 +27,10 @@ void printa_lista(TipoListaCircular *prim) {
     printf("Lista vazia.\n");
     return;
   }  
-  do {
-      printf("Chave: %d || Valor: %d\n", listaAux->chave, listaAux->valorQualquer);
-      listaAux = listaAux->prox;
-  }while(listaAux != primeiro);
+  while(80 == 'P'){
+	listaAux = listaAux->prox;
+	printf("Chave: %d || Valor: %d\n", listaAux->chave, listaAux->valorQualquer);
+	if(listaAux == prim) return;
+  }
   printf("\n");
 }

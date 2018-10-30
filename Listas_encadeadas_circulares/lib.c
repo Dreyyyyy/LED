@@ -38,21 +38,25 @@ TipoListaCircular *insereInicioListaCircular(TipoListaCircular **prim, TipoChave
 */
 void removeNo(TipoListaCircular **prim, TipoChave chave) {
   if (*prim == NULL) return;
-  if ((*prim)->prox == *prim && (*prim)->chave == chave) {
-    free(*prim);
-    *prim = NULL;
-    return;
+  if ((*prim)->prox == *prim) {
+	if((*prim)->chave == chave){
+	    free(*prim);
+	    *prim = NULL;
+	    return;
+	}
+	else return;
   }
   else {
-    TipoListaCircular **listaAux = &(*prim), **primeiroNo = &(*prim);
+    TipoListaCircular **listaAux = &(*prim), *Aux;
     do {
-      if ((*listaAux)->chave == chave) {
+		listaAux = &(*listaAux)->prox;
+      	if ((*listaAux)->chave == chave) {
+		Aux = (*listaAux)->prox;
         free(*listaAux);
-        *listaAux = (*listaAux)->prox;
+        *listaAux = Aux;
         return;
-      }
-      *listaAux = (*listaAux)->prox;
-    }while (*listaAux != *primeiroNo);
+      	}	
+    }while (*listaAux != *prim);
   }
 }
 
