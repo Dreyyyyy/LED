@@ -3,21 +3,28 @@
 void printa_lista(TipoListaCircular *prim);
 
 int main(int argc, char const *argv[]) {
-  TipoListaCircular *prim = NULL;
-  int i, tam = 0, chave = 0, valor = 0, no = 0;
+  TipoListaCircular *prim = NULL, *lista2;
+  int i, tam = 0, chave = 0, valor = 0, no = 0, op1 = 0;
   printf("Digite o tamanho da lista circular desejada: ");
   scanf("%d", &tam);
   for (i = 0; i < tam; i++) {
-    valor = rand () % 100;
-    chave = rand () % 100;
+    valor = rand () % 50;
+    chave = rand () % 50;
     printf("Valor gerado para ser inserido: %d\n", valor);
     insereInicioListaCircular(&prim, chave, valor);
   }
   printa_lista(prim);
-  printf("Digite uma chave para remover um nó: ");
-  scanf("%d", &no);
-  removeNo(&prim, no);
-  printa_lista(prim);
+  do {
+		printf("Digite uma chave para remover um nó: ");
+		scanf("%d", &no);
+		removeNo(&prim, no);
+		printa_lista(prim);
+		printf("Digite 1 para remover novamente: ");
+		scanf("%d", &op1);
+	}while(op1 == 1);	
+	printf("Nova lista com chaves pares da lista anterior:\n");
+	lista2 = copiaListaPar(prim);
+	printa_lista(lista2);
   return 0;
 }
 

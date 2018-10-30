@@ -66,4 +66,13 @@ void removeNo(TipoListaCircular **prim, TipoChave chave) {
 * Devolve o ponteiro para
 * o primeiro nó da nova lista.
 */
-//TipoListaCircular *copiaListaPar(TipoListaCircular *prim);
+TipoListaCircular *copiaListaPar(TipoListaCircular *prim) {
+	TipoListaCircular *listaAux = prim, *novaLista = NULL;
+	do {
+		if (listaAux->chave % 2 == 0) {
+			insereInicioListaCircular(&novaLista, listaAux->chave, listaAux->valorQualquer);
+		}
+		listaAux = listaAux->prox;
+	}while(listaAux != prim->prox);
+	return novaLista;
+}
