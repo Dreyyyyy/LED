@@ -19,9 +19,9 @@ int main(int argc, char const *argv[]) {
 		scanf("%d", &no);
 		removeNo(&prim, no);
 		printa_lista(prim);
-		printf("Digite 1 para remover novamente: ");
+		printf("Digite 1 para remover novamente ou qualquer outro número para prosseguir com o código: ");
 		scanf("%d", &op1);
-	}while(op1 == 1);	
+	}while(op1 == 1);
 	printf("Nova lista com chaves pares da lista anterior:\n");
 	lista2 = copiaListaPar(prim);
 	printa_lista(lista2);
@@ -29,15 +29,14 @@ int main(int argc, char const *argv[]) {
 }
 
 void printa_lista(TipoListaCircular *prim) {
-  TipoListaCircular *listaAux = prim, *primeiro = prim;
+  TipoListaCircular *listaAux = prim;
   if(prim == NULL) {
     printf("Lista vazia.\n");
     return;
-  }  
-  while(80 == 'P'){
-	listaAux = listaAux->prox;
-	printf("Chave: %d || Valor: %d\n", listaAux->chave, listaAux->valorQualquer);
-	if(listaAux == prim) return;
   }
+  do {
+  	printf("Chave: %d || Valor: %d\n", listaAux->chave, listaAux->valorQualquer);
+    listaAux = listaAux->prox;
+  }while(listaAux != prim);
   printf("\n");
 }

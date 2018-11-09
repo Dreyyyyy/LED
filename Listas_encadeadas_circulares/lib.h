@@ -18,6 +18,10 @@ struct TipoListaCircular {
 
 typedef struct TipoListaCircular TipoListaCircular;
 
+TipoListaCircular *novo_no(TipoChave chave, TipoValor valor);
+
+int remove_prim(TipoListaCircular **no);
+
 TipoListaCircular *insereInicioListaCircular(TipoListaCircular **prim, TipoChave chave, TipoValor valor);
 
 void removeNo(TipoListaCircular **prim, TipoChave chave);
