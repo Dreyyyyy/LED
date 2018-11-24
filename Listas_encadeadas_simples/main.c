@@ -7,7 +7,7 @@ void imprimeLista(TipoListaSimples *prim) {
     TipoListaSimples *aux = prim;
 
 	if(aux == NULL) {
-		printf("\nLista Vazia!");
+		printf("Lista Vazia!\n");
         return;
 	}
 
@@ -41,50 +41,53 @@ int main(void) {
     no = pesquisaNo(lista, 36);
     printf("\npesquisaNO => %p\n", no);
 
-    /*insereFimListaSimples(&lista, 344, -2);
-
-    puts("insereFimListaSimples() // 244");
+    insereFimListaSimples(&lista, 344, -2);
+    puts("\ninsereFimListaSimples() // 344");
     imprimeLista(lista);
 
-    puts("removeUltimoNo()");
+    puts("\nremoveUltimoNo()");
     removeUltimoNo(&lista);
     imprimeLista(lista);
 
-    puts("removeNo() //3");
-    removeNo(&lista, 3);
+    puts("\nremoveNo() //27");
+    removeNo(&lista, 27);
     imprimeLista(lista);
 
-    puts("copiaListas()");
+    puts("\ncopiaListas()");
     lista2 = copiaListas(lista);
     imprimeLista(lista2);
 
-    puts("intersecaoListas()");
+    puts("\nintersecaoListas()");
     lista2 = intersecaoListas(lista, lista2);
-    imprimeLista(lista);
+    imprimeLista(lista2);
 
-    puts("insereRemove()");
+    puts("\ninsereRemove()");
     insereRemove(&lista, &lista2);
     imprimeLista(lista);
+    puts("\n");
     imprimeLista(lista2);
 
-    puts("transplantaNo");
+    /*puts("transplantaNo");
     transplantaNo(&lista, &lista2);
     imprimeLista(lista);
+    puts("\n");
     imprimeLista(lista2);
+    puts("\n");*/
 
-    puts("contaNo()");
+    puts("\ncontaNo(Lista 1)");
     printf("n = %d\n", contaNo(&lista));
 
-    puts("alturaNo()");
-    printf("h = %d\n", alturaNo(&lista, 2));
-
-    puts("profundidadeNo() //3");
-    printf("p = %d\n", profundidadeNo(&lista, 76));
+    puts("\nalturaNo(Lista 1) //33");
+    printf("h = %d\n\n", alturaNo(&lista, 33));
     imprimeLista(lista);
 
-    puts(" liberaNos()");
+    puts("\nprofundidadeNo(Lista 1) //33");
+    printf("p = %d\n\n", profundidadeNo(&lista, 33));
+    imprimeLista(lista);
+
+    puts("\nliberaNos()");
     liberaNos(&lista);
-    imprimeLista(lista);*/
+    imprimeLista(lista);
 
     return 0;
 }

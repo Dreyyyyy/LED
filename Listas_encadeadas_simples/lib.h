@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 /*
 * Faça uma biblioteca para as definições
@@ -22,7 +23,7 @@ void removePrimeiroNo(TipoListaSimples **prim);
 
 TipoListaSimples *pesquisaNo(TipoListaSimples *prim, TipoChave chave);
 
-TipoListaSimples * insereFimListaSimples(TipoListaSimples **prim, TipoChave chave);
+TipoListaSimples * insereFimListaSimples(TipoListaSimples **prim, TipoChave chave, TipoValor valor);
 
 void removeUltimoNo(TipoListaSimples **prim);
 
@@ -36,7 +37,7 @@ TipoListaSimples *intersecaoListas(TipoListaSimples *prim1, TipoListaSimples *pr
 
 void insereRemove(TipoListaSimples **primLista1, TipoListaSimples **primLista2);
 
-void transplantaNo(TipoListaSimples **primLista1, TipoListaSimples **primLista2);
+//void transplantaNo(TipoListaSimples **primLista1, TipoListaSimples **primLista2);
 
 int contaNo(TipoListaSimples **primLista1);
 
