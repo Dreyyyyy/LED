@@ -1,31 +1,32 @@
 #include "lib.h"
 
-TipoListaCircular *novo_no(TipoChave chave, TipoValor valor) {//Alocação comum de um nó circular, outra hora detalho isso direito (Se eu não esquecer);
-  TipoListaCircular *novoNo = (TipoListaCircular*)malloc(sizeof(TipoListaCircular));
-  if (novoNo == NULL) return NULL;
-  novoNo->chave = chave;
-  novoNo->valorQualquer = valor;
-  novoNo->prox = novoNo;
-  return novoNo;
+TipoListaCircular *novo_no(TipoChave chave, TipoValor valor) {//Alocação comum de um nó circular
+  TipoListaCircular *novoNo = (TipoListaCircular*)malloc(sizeof(TipoListaCircular));//Alocando espaço de memória
+  if (novoNo == NULL) return NULL;//Caso insucesso, a função retorna "NULL"
+  else {//Caso contrário, insere os dados no novo nó
+    novoNo->chave = chave;
+    novoNo->valorQualquer = valor;
+    novoNo->prox = novoNo;
+    return novoNo;
+  }
 }
 
 int remove_prim(TipoListaCircular **lista) {
-  if (*lista == NULL) return 0;//Verifica se a lista está vazia;
-  if (*lista == (*lista)->prox) {//Verifica se existe apenas um nó na lista, em caso positivo remove este;
+  if (*lista == NULL) return 0;//Verifica se a lista está vazia
+  if ((*lista)->prox == *lista) {//Verifica se existe apenas um elemento na lista, em caso positivo este é removido
     free(*lista);
     *lista = NULL;
-  }
-  else {
-    TipoListaCircular *noAtual = *lista;//Auxiliar para busca na lista;
-    while (noAtual->prox != *lista) {//Condição do laço: Enquanto o nó não for igual ao primeiro, no caso enquanto ele não for o último ???K(De novo eu não faço ideia de como deu certo, mas deu)
-      noAtual = noAtual->prox;
-    }
-    TipoListaCircular *no = *lista;//Primeiro nó é apontado por um ponteiro;
-    noAtual->prox = no->prox;//O nó encontrado(no caso o último, já entendi o que acontecia nos "for" acima mas não to afim de arrumar os comentários agora :")) aponta para o próximo nó da lista, no caso o segundo;
-    *lista = no->prox;//A lista passa apontar para o novo primeiro nó;
-    free(no);//Enfim é liberado o nó;
     return 1;
   }
+  TipoListaCircular *listaAux = *lista, *noAux = *lista;//Ponteiros auxiliares são declarados
+  while (listaAux->prox != *lista) {//Condição do laço: Enquanto a lista não chegar ao seu "fim"
+    listaAux = listaAux->prox;
+  }
+  listaAux->prox = (*lista)->prox;//"Fim" da lista aponta para o sucessor do primeiro nó da lista
+  *lista = (*lista)->prox;//Início da lista passa a ser o seu sucessor
+  free(noAux);//O primeiro nó anterior é removido
+  noAux = NULL;//Evita leitura e escrita ilegal
+  return 1;
 }
 
 /*===========================>PROCEDIMENTOS BÁSICOS DE LISTAS CIRCULAR
@@ -37,19 +38,21 @@ int remove_prim(TipoListaCircular **lista) {
 * ou NULL em caso de insucesso.
 */
 TipoListaCircular *insereInicioListaCircular(TipoListaCircular **prim, TipoChave chave, TipoValor valor) {
-  if (*prim == NULL) {//Verifica se a lista está vazia;
-    *prim = novo_no(chave, valor);//Caso esteja vazia, aloca o primeiro elemento;
+  if (*prim == NULL) {//Verifica se a lista está vazia
+    *prim = novo_no(chave, valor);//Aloca um novo nó
+    if (*prim == NULL) return NULL;//Verifica se ocorreu tudo bem na alocação
+    else return *prim;//Retorna a lista com o único nó inserido
   }
   else {
     TipoListaCircular *novoNo = novo_no(chave, valor), *noAux = *prim;
-    while (noAux->prox != *prim) {//Busca o último, e consequentemente o primeiro ???(Sei lá como isso deu certo mas tá funcionando aparentemente :"));
+    while (noAux->prox != *prim) {//Busca o "último" nó da fila, o que aponta para o começo
       noAux = noAux->prox;
     }
-    noAux->prox = novoNo;//O próximo nó do último, que consequentemente é o primeiro ???(Sei lá novamente) aponta para o novo nó alocado;
-    novoNo->prox = *prim;//O próximo nó aponta seu próximo para o nó que anteriormente era o primeiro;
-    *prim = novoNo;//Novo nó passa a ser o primeiro;
+    noAux->prox = novoNo;//O "->prox" que apontava para o primeiro anterior agora aponta para o novo nó inserido
+    novoNo->prox = *prim;//O "->prox" do novo nó inserido aponta para o primeiro anterior, assim ligando o novo nó com a lista
+    *prim = novoNo;//Novo nó passa a ser o primeiro
   }
-  return *prim;//Retorna a lista com o novo nó alocado;
+  return *prim;//Retorna a lista com o novo nó alocado
 }
 
 /* -------------------------> Remove nó por valor de chave
@@ -57,22 +60,22 @@ TipoListaCircular *insereInicioListaCircular(TipoListaCircular **prim, TipoChave
 * Mantêm lista inalterada caso este não exista.
 */
 void removeNo(TipoListaCircular **prim, TipoChave chave) {
-  if (*prim == NULL) return;//Verifica se a lista está vazia;
-  TipoListaCircular *listaAux = *prim;//Auxiliar para percorrer a lista sem alterar o endereço;
-  if (listaAux->chave == chave) {//Verifica se o primeiro nó da lista é o que procuramos;
-    remove_prim(&listaAux);//Caso for, remove o primeiro;
-  }
+  if (*prim == NULL) return;//Verifica se a lista está vazia
+  TipoListaCircular *noSuc = *prim;
+  if (noSuc->chave == chave) remove_prim(&noSuc);//Verifica se o primeiro nó da lista é o procurado, caso for já é removido
   else {
-    TipoListaCircular *noAnt = listaAux;//Armazena o nó anterior em um ponteiro;
-    listaAux = listaAux->prox;//Avança a posição da lista;
-    while (listaAux != *prim && listaAux->chave != chave) {//Condição do laço: Enquanto o auxiliar for diferente do início da lista e diferente da chave procurada;
+    TipoListaCircular *noAnt = *prim;//Ponteiros auxiliares declarados
+    noSuc = noSuc->prox;//Avança o nó sucessor para frente
+    while (noSuc->prox != *prim && noSuc->chave != chave) {//Condição do laço: Enquanto não for encontrado a chave ou o "fim" da lista, o laço continua em execução
+      noSuc = noSuc->prox;
       noAnt = noAnt->prox;
-      listaAux = listaAux->prox;
     }
-    if (listaAux == *prim) return;//Após o fim da busca, caso a lista tenha sido percorrida por completo, a chave não foi encontrada;
-    noAnt->prox = listaAux->prox;//Caso contrário, o nó anterior apontará para onde o nó encontrado apontava;
-    free(listaAux);//Agora é removido tal nó, visto que a lista já está conectada;
-    listaAux = NULL;//Evita vazamento de memória!!!!!
+    if (noSuc == *prim) return;//Ao término do laço, é verificad se este chegou até o "fim" da lista, caso positivo, a chave não foi encontrada
+    else {
+      noAnt->prox = noSuc->prox;//Caso contrário o nó anterior ao que será removido aponta o "->prox" para onde o nó que será removido apontava
+      free(noSuc);//Então o nó pode ser finalmente removido
+      noSuc = NULL;//Evita leitura e escrita ilegal
+    }
   }
 }
 
@@ -83,14 +86,9 @@ void removeNo(TipoListaCircular **prim, TipoChave chave) {
 * o primeiro nó da nova lista.
 */
 TipoListaCircular *copiaListaPar(TipoListaCircular *prim) {
-  TipoListaCircular *novaLista = (TipoListaCircular*)malloc(sizeof(TipoListaCircular)), *listaAux;
-  if (novaLista == NULL) return NULL;
-  else {
-    for (listaAux = prim; listaAux != prim; listaAux = listaAux->prox) {
-      if (listaAux->chave % 2 == 0) {
-        insereInicioListaCircular(&novaLista, listaAux->chave, listaAux->valorQualquer);
-      }
-    }
+  TipoListaCircular *novaLista = NULL, *listaAux = NULL;//Ponteiros auxiliares declarados
+  for (listaAux = prim; listaAux->prox != prim; listaAux = listaAux->prox) {//Condição do laço: Enquanto a lista não chegar ao fim
+    if (listaAux->chave % 2 == 0) insereInicioListaCircular(&novaLista, listaAux->chave, listaAux->valorQualquer);//Se os nós que passarem por aqui tiverem seu campo chave par, serão inseridos na nova lista
   }
-  return novaLista;
+  return novaLista;//Retorna a nova lista
 }
